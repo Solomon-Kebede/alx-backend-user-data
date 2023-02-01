@@ -16,8 +16,7 @@ Write a function called `filter_datum` that returns the log message obfuscated:
 '''
 
 
-def filter_datum(
-        fields: list[str], redaction: str, message: str, separator: str):
+def filter_datum(fields, redaction, message, separator):
     '''returns the log message obfuscated'''
     import re
     split_message = message.split(';')
