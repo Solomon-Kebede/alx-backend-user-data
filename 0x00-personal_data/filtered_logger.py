@@ -19,12 +19,12 @@ Write a function called `filter_datum` that returns the log message obfuscated:
 def filter_datum(fields, redaction, message, separator):
     '''returns the log message obfuscated'''
     import re
-    split_message = message.split(';')
+    split_message = message.split(separator)
     for field in fields:
         redactRegex = re.compile(f'{field}=' + r'.*')
         for i in range(len(split_message)):
             split_message[i] = redactRegex.sub(
-                f'{field}=xxx', split_message[i]
+                f'{field}={redaction}', split_message[i]
             )
-    joined_message = ';'.join(split_message)
+    joined_message = separator.join(split_message)
     return joined_message
