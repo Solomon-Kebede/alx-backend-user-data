@@ -15,9 +15,11 @@ Write a function called `filter_datum` that returns the log message obfuscated:
     the substitution with a single regex.
 '''
 
-
 import re
 
 
-def filter_datum(fields, redaction, message, separator):
-    return re.sub(r'[a-z]*\w{5,12}' + separator + r'|\d\d/\d\d/\d\d\d\d' + separator, f'{redaction}{separator}', message)
+def filter_datum(
+        fields: list[str], redaction: str, message: str, separator: str):
+    '''returns the log message obfuscated'''
+    regex = r'[a-z]*\w{8,24}' + separator + r'|\d\d/\d\d/\d\d\d\d' + separator
+    return re.sub(regex, f'{redaction}{separator}', message)
