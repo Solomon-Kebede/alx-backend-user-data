@@ -20,8 +20,4 @@ import re
 
 
 def filter_datum(fields, redaction, message, separator):
-    split_message = message.split(separator)
-    for field in fields:
-        for i in range(len(split_message)):
-            split_message[i] = re.compile(f'{field}=' + r'.*').sub(f'{field}={redaction}', split_message[i])
-    return separator.join(split_message)
+    return re.sub(r'[a-z]*\w{5,12}' + separator + r'|\d\d/\d\d/\d\d\d\d' + separator, f'{redaction}{separator}', message)
