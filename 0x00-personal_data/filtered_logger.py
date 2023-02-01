@@ -20,7 +20,6 @@ import re
 
 
 def filter_datum(fields, redaction, message, separator):
-    '''returns the log message obfuscated'''
     split_message = message.split(separator)
     for field in fields:
         for i in range(len(split_message)):
