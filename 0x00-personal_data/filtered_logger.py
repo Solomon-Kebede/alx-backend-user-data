@@ -35,16 +35,10 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         '''Return redacted result'''
-        # print(record)
-        # print()
-        # print(self.REDACTION)
-        # print(logging.Formatter(self.FORMAT, record))
-        return filter_datum(
-            self.fields,
-            self.REDACTION,
-            record.getMessage(),
-            self.SEPARATOR
-        )
+        record.__dict__['msg'] = filter_datum(
+            self.fields, self.REDACTION, record.getMessage(), self.SEPARATOR)
+        msg = super().format(record)
+        return msg
 
 
 def filter_datum(
