@@ -59,7 +59,7 @@ def filter_datum(
 
 def get_logger() -> logging.Logger:
     '''Create logger'''
-    logger = logging.Logger("user_data")
+    logger = logging.getLogger("user_data")
     logger.setLevel("INFO")
     logger.propagate = False
     # handler = logging.StreamHandler(stream=None)
