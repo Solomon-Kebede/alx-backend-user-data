@@ -33,7 +33,11 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        NotImplementedError
+        # print(record)
+        # print()
+        # print(self.REDACTION)
+        # print(logging.Formatter(self.FORMAT, record))
+        return filter_datum(self.fields, self.REDACTION, record.getMessage(), self.SEPARATOR)
 
 def filter_datum(
         fields: List[str],
