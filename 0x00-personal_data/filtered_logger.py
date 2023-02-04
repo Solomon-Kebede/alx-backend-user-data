@@ -88,4 +88,4 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     '''returns a connector to the database'''
     # print(f'{username}-{password}-{host}-{dbname}')
     conn = mc.connect(host=host, user=username, password=password, db=dbname)
-    return conn.cursor()
+    return conn
