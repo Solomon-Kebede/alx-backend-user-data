@@ -78,8 +78,14 @@ def get_logger() -> logging.Logger:
     return logger
 
 
+'''
+def get_db(host="localhost": str, user="root": str, password="":str, db: str
+    ) -> mysql.connector.connection.MySQLConnection:
+'''
+
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     '''returns a connector to the database'''
-    print(f'{username}-{password}-{host}-{dbname}')
+    # print(f'{username}-{password}-{host}-{dbname}')
     conn = mc.connect(host=host, user=username, password=password, db=dbname)
     return conn.cursor()
