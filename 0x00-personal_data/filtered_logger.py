@@ -77,8 +77,9 @@ def get_logger() -> logging.Logger:
     # print(logger.__dict__)
     return logger
 
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     '''returns a connector to the database'''
     print(f'{username}-{password}-{host}-{dbname}')
-    conn = mc.connect(host=host,user=username,password=password,db=dbname)
+    conn = mc.connect(host=host, user=username, password=password, db=dbname)
     return conn.cursor()
