@@ -70,22 +70,12 @@ def get_logger() -> logging.Logger:
     logger.setLevel(logging.INFO)
     logger.propagate = False
     handler = logging.StreamHandler()
-    # handler.emit(RedactingFormatter(PII_FIELDS))
     handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(handler)
-    # print(handler.__dict__)
-    # print(logger.__dict__)
     return logger
-
-
-'''
-def get_db(host="localhost": str, user="root": str, password="":str, db: str
-    ) -> mysql.connector.connection.MySQLConnection:
-'''
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     '''returns a connector to the database'''
-    # print(f'{username}-{password}-{host}-{dbname}')
     conn = mc.connect(host=host, user=username, password=password, db=dbname)
     return conn
