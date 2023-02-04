@@ -23,7 +23,7 @@ def filter_datum(
         redaction: str,
         message: str,
         separator: str
-    ):
+    ) -> str:
     '''Return an obfuscated log message'''
     for field in fields:
         regex = f'{field}=(.*?){separator}'
