@@ -18,9 +18,16 @@ Write a function called `filter_datum` that returns the log message obfuscated:
 from typing import List
 import re
 import logging
+import os
+import mysql
+import mysql.connector as mc
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+username = os.getenv('PERSONAL_DATA_DB_USERNAME')
+password = os.getenv('PERSONAL_DATA_DB_PASSWORD')
+host = os.getenv('PERSONAL_DATA_DB_HOST')
+dbname = os.getenv('PERSONAL_DATA_DB_NAME')
 
 
 class RedactingFormatter(logging.Formatter):
@@ -69,3 +76,9 @@ def get_logger() -> logging.Logger:
     # print(handler.__dict__)
     # print(logger.__dict__)
     return logger
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    '''returns a connector to the database'''
+    print(f'{username}-{password}-{host}-{dbname}')
+    conn = mc.connect(host=host,user=username,password=password,db=dbname)
+    return conn.cursor()
