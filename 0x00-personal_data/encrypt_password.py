@@ -22,3 +22,28 @@ def hash_password(password: str) -> bytes:
     # Hashing the password
     hashed_password = bcrypt.hashpw(password_bytes, salt)
     return hashed_password
+
+
+'''
+-Implement an `is_valid` function that expects 2 arguments
+and returns a boolean.
+-Arguments:
+    -`hashed_password`: bytes type
+    -`password`: string type
+-Use `bcrypt` to validate that the provided password
+matches the hashed password.
+'''
+
+
+def is_valid(hashed_password: bytes, password: str) -> bool:
+    '''
+    Return a boolean if password is the source
+    of the hash
+    '''
+    # converting password to array of bytes
+    password_bytes = password.encode('utf-8')
+    # generating the salt
+    salt = bcrypt.gensalt()
+    # checking password
+    result = bcrypt.checkpw(password_bytes, hashed_password)
+    return result
