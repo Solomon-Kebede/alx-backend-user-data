@@ -1,18 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-Write a function called `filter_datum` that returns the log message obfuscated:
-    Arguments:
-        -`fields`: a list of strings representing all fields to obfuscate
-        -`redaction`: a string representing by what the field will
-        be obfuscated
-        -`message`: a string representing the log line
-        -`separator`: a string representing by which character is separating
-        all fields in the log line (`message`)
-    The function should use a regex to replace occurrences of certain
-    field values.
-    `filter_datum` should be less than 5 lines long and use `re.sub` to perform
-    the substitution with a single regex.
+4. Read and filter data
 '''
 
 from typing import List
@@ -21,6 +10,7 @@ import logging
 import os
 import mysql
 import mysql.connector as mc
+import datetime
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
@@ -77,5 +67,36 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     '''returns a connector to the database'''
-    conn = mc.connect(host=host, user=username, password=password, db=dbname)
+    conn = mc.connect(host=host, user=username, password='password', db=dbname)
     return conn
+
+
+def main():
+    '''
+    Obtains a database connection using get_db
+    and retrieve all rows in the users table and
+    display each row under a filtered format
+    '''
+    mf1 = 'name={}; email={}; phone={}; ssn={};'
+    mf2 = ' password={}; ip={}; last_login={}; user_agent={};'
+    message_format = mf1 + mf2
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM users')
+    writers = cursor.fetchall()
+    for row_data in writers:
+        message = message_format.format(
+            row_data[0], row_data[1],
+            row_data[2], row_data[3],
+            row_data[4], row_data[5],
+            row_data[6], row_data[7]
+        )
+        log_record = logging.LogRecord(
+            "user_data", logging.INFO, None, None, message, None, None
+        )
+        formatter = RedactingFormatter(fields=PII_FIELDS)
+        print(formatter.format(log_record))
+
+
+if __name__ == "__main__":
+    main()
