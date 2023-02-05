@@ -7,10 +7,10 @@ name `password` and returns a salted, hashed password, which is a byte string.
 -Use the `bcrypt` package to perform the hashing (with `hashpw`).
 '''
 
-import bycrypt
+import bcrypt
 
 
-def hash_password(password):
+def hash_password(password: str) -> bytes:
     '''
     Return a salted, hashed password, which is a
     byte string using bycrypt.hashpw
@@ -21,4 +21,4 @@ def hash_password(password):
     salt = bcrypt.gensalt()
     # Hashing the password
     hashed_password = bcrypt.hashpw(password_bytes, salt)
-    print(hashed_password)
+    return hashed_password
