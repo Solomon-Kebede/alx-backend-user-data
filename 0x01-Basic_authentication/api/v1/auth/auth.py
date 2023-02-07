@@ -12,10 +12,13 @@ class Auth:
         """docstrings for require_auth"""
         if path is None or excluded_paths is None or excluded_paths == []:
             return True
-        if path not in excluded_paths:
-            return True
-        elif path in excluded_paths:
+        test1 = (path in excluded_paths)
+        test2 = (f"{path}/" in excluded_paths)
+        test3 = (path[0:-1] in excluded_paths)
+        if test1 or test2 or test3:
             return False
+        elif not test1 or not test2 or not test3:
+            return True
 
     def authorization_header(self, request=None) -> str:
         """docstrings for authorization_header"""
