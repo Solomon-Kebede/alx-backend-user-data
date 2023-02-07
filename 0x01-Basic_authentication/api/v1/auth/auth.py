@@ -7,6 +7,7 @@ from typing import List, TypeVar
 
 
 class Auth:
+    """docstrings for Auth class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """docstrings for require_auth"""
         return False
