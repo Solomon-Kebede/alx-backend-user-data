@@ -10,7 +10,12 @@ class Auth:
     """docstrings for Auth class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """docstrings for require_auth"""
-        return False
+        if path is None or excluded_paths is None or excluded_paths == []:
+            return True
+        if path not in excluded_paths:
+            return True
+        elif path in excluded_paths:
+            return False
 
     def authorization_header(self, request=None) -> str:
         """docstrings for authorization_header"""
