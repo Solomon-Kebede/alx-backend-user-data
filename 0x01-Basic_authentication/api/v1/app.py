@@ -18,16 +18,17 @@ auth = None or os.getenv("AUTH_TYPE")
 if auth:
     auth = Auth()
 
+
 @app.before_request
 def exec_before_request():
     if auth is None:
         return
     elif not auth.require_auth(
         request.path, [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/'
-    ]):
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/'
+            ]):
         return
     elif auth.authorization_header(request) is None:
         abort(401)
