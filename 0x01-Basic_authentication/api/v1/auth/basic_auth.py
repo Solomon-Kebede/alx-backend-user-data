@@ -2,14 +2,21 @@
 """
 Module for Basic Authentication
 """
-# from os import getenv
-# from api.v1.views import app_views
-# from flask import Flask, jsonify, abort, request
-# from flask_cors import (CORS, cross_origin)
-# import os
 from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
     """docstring for BasicAuth"""
-    pass
+    def extract_base64_authorization_header(
+        self,
+        authorization_header: str
+    ) -> str:
+        """Extract base64 text from header"""
+        if authorization_header is None:
+            return None
+        elif not isinstance(authorization_header, str):
+            return None
+        elif not authorization_header[0:6] == "Basic ":
+            return None
+        else:
+            return authorization_header[6:]
