@@ -21,6 +21,7 @@ if auth:
 
 @app.before_request
 def exec_before_request():
+    """function executes before request"""
     if auth is None:
         return
     elif not auth.require_auth(
