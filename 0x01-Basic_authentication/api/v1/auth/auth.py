@@ -22,7 +22,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """docstrings for authorization_header"""
-        return None
+        if request is None:
+            return None
+        elif 'HTTP_AUTHORIZATION' not in request.__dict__.get('environ'):
+            return None
+        elif 'HTTP_AUTHORIZATION' in request.__dict__.get('environ'):
+            return request.__dict__.get('environ').get('HTTP_AUTHORIZATION')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """docstrings for current_user"""
