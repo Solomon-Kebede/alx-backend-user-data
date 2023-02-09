@@ -9,6 +9,7 @@ from uuid import uuid4 as id
 class SessionAuth(Auth):
     """docstring for SessionAuth"""
     user_id_by_session_id = {}
+
     def create_session(self, user_id: str = None) -> str:
         """creates a Session ID for a user_id"""
         if user_id is None:
@@ -18,4 +19,4 @@ class SessionAuth(Auth):
         else:
             session_id = id()
             self.user_id_by_session_id[str(session_id)] = user_id
-            return session_id
+            return str(session_id)
