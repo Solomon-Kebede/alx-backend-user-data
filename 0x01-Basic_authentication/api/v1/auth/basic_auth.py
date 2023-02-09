@@ -68,7 +68,10 @@ class BasicAuth(Auth):
         else:
             # import pprint
             # pprint.pprint(User.__dict__)
-            users = User.search({"email": user_email})
+            try:
+                users = User.search({"email": user_email})
+            except Exception:
+                return None
             if users == []:
                 return None
             else:
@@ -76,13 +79,4 @@ class BasicAuth(Auth):
                     user_validity = user.is_valid_password(user_pwd)
                     if user_validity:
                         return user
-                    # print()
                 return None
-                '''
-                try:
-                    print(f">>{}")
-                    return user[0]
-                except Exception as e:
-                    print(e)
-                    return None
-                '''
