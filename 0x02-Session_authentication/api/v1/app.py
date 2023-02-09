@@ -29,6 +29,7 @@ if auth:
 @app.before_request
 def exec_before_request():
     """function executes before request"""
+    print(auth.session_cookie(request))
     if auth is None:
         return
     elif not auth.require_auth(
@@ -39,11 +40,12 @@ def exec_before_request():
             '/api/v1/auth_session/login/'
             ]):
         return
+    elif (
+        auth.authorization_header(request), auth.session_cookie(request)
+    ) != (None, None):
+        abort(403)
     elif auth.authorization_header(request) is None:
         abort(401)
-    elif auth.session_cookie(request):
-        abort(403)
-        return None
     elif auth.current_user(request) is None:
         abort(403)
     elif auth.current_user(request) is not None:
