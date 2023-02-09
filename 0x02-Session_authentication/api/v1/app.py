@@ -42,7 +42,7 @@ def exec_before_request():
     elif auth.authorization_header(request) is None:
         abort(401)
     elif auth.session_cookie(request):
-        abort(401)
+        abort(403)
         return None
     elif auth.current_user(request) is None:
         abort(403)
