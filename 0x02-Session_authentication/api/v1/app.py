@@ -35,11 +35,15 @@ def exec_before_request():
         request.path, [
             '/api/v1/status/',
             '/api/v1/unauthorized/',
-            '/api/v1/forbidden/'
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login/'
             ]):
         return
     elif auth.authorization_header(request) is None:
         abort(401)
+    elif auth.session_cookie(request):
+        abort(401)
+        return None
     elif auth.current_user(request) is None:
         abort(403)
     elif auth.current_user(request) is not None:
