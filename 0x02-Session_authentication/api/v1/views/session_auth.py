@@ -18,16 +18,16 @@ def auth_login() -> str:
     email = request.form.get("email")
     password = request.form.get("password")
     if email is None:
-        return jsonify({ "error": "email missing" }), 400
+        return jsonify({"error": "email missing"}), 400
     if password is None:
-        return jsonify({ "error": "password missing" }), 400
+        return jsonify({"error": "password missing"}), 400
     users = User.search({"email": email})
     if users == []:
-        return jsonify({ "error": "no user found for this email" }), 404
+        return jsonify({"error": "no user found for this email"}), 404
     for user in users:
         user_validity = user.is_valid_password(password)
         if not user_validity:
-            return jsonify({ "error": "wrong password" }), 401
+            return jsonify({"error": "wrong password"}), 401
         elif user_validity:
             from api.v1.app import auth
             user_id = user.__dict__.get("id")
