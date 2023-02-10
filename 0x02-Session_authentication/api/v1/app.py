@@ -29,7 +29,7 @@ if auth:
 @app.before_request
 def exec_before_request():
     """function executes before request"""
-    print(auth.session_cookie(request))
+    # print(auth.session_cookie(request))
     if auth is None:
         return
     elif not auth.require_auth(
