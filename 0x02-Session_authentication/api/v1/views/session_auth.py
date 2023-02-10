@@ -13,8 +13,6 @@ def auth_login() -> str:
     Return:
       - Authenticate user credentials for login
     """
-    # all_users = [user.to_json() for user in User.all()]
-    # return jsonify(all_users)
     email = request.form.get("email")
     password = request.form.get("password")
     if email is None:
@@ -41,3 +39,21 @@ def auth_login() -> str:
             return out, 200
     # print(f"{email}:{password}")
     # return None
+
+
+@app_views.route(
+    '/auth_session/logout', methods=['DELETE'], strict_slashes=False
+    )
+def destroy_session(self, request=None):
+    """DELETE /api/v1/auth_session/logout
+    Return:
+      - Destroy the session
+    """
+    if request is None:
+        return False
+    else:
+        # cookie_name = os.getenv("SESSION_NAME")
+        # print(self.session_cookie(request))
+        # print(request.form.get(cookie_name))
+        # from api.v1.app import auth
+        pass
