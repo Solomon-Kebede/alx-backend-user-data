@@ -41,10 +41,8 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
-        # print(kwargs)
-        # print(User.__dict__)
-        # for k, v in kwargs.items():
+    def find_user_by(self, **kwargs) -> User:
+        """find_user_by"""
         try:
             a = self._session.query(User).filter_by(**kwargs).one()
             return (a)
